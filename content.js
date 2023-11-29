@@ -1,6 +1,4 @@
-chrome.runtime.onMessage.addListener(
-    
-    function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         console.log('aaa');
         console.log("sender" + sender);
         console.log("Sender response" + sendResponse);
