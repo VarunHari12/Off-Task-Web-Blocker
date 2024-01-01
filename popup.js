@@ -8,8 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
 function captureIntent() {
     const userInput = document.getElementById('userInput').value;
     console.log("User intent:", userInput);
-    window.close();
-    localStorage.setItem("intent", userInput)
-    alert(localStorage.getItem("intent"));
-
+    
+    chrome.storage.sync.set({"intent": userInput}, function() {
+        console.log('Value is set to ' + userInput);
+      });
+    
+      chrome.storage.sync.get(["intent"], function(result) {
+        alert('Value currently is ' + result.intent);
+      });
+    
+    //window.close();
 }
