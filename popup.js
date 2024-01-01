@@ -17,5 +17,5 @@ function captureIntent() {
         alert('Value currently is ' + result.intent);
       });
     
-    //window.close();
+    window.close();
 }
