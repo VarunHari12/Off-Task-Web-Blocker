@@ -255,12 +255,51 @@ const generateSTYLES = () => {
      `;
   };
 
-console.log("test")
-chrome.storage.sync.get(["intent"], function(result) {
-    //alert('Value currently is ' + result.intent);
-    let focused = false;
-    if (focused == false && approved.includes(window.location.hostname) == false) {
-        document.head.innerHTML = generateSTYLES();
-        document.body.innerHTML = generateHTML(result.intent);
-    }
-  });
+  console.log("test")
+  chrome.storage.sync.get(["intent"], function(result) {
+      //alert('Value currently is ' + result.intent);
+      // Define the request data
+      const requestData = {
+        url: window.location.toString(), // Replace with the actual URL
+        intent: result.intent,      // Replace with the actual intent
+      };
+      
+      // Make the CORS preflight request
+      fetch("https://85e4-50-46-246-210.ngrok-free.app/antidis", {
+        method: "OPTIONS",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Request-Method": "POST",  // Specify the actual request method
+          "Access-Control-Request-Headers": "Content-Type",  // Specify the actual request headers
+        },
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+      
+          // If the preflight request is successful, make the actual request
+          return fetch("https://85e4-50-46-246-210.ngrok-free.app/antidis", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+          });
+        })
+        .then(actualResponse => {
+          if (!actualResponse.ok) {
+            throw new Error(`Actual request error! Status: ${actualResponse.status}`);
+          }
+      
+          return actualResponse.json();
+        })
+        .then(data => {
+          // Handle the response data here
+          console.log(data);
+        })
+        .catch(error => {
+          // Handle errors during the request
+          console.error("Error during the request:", error);
+        });
+      });
