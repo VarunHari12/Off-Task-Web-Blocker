@@ -1,7 +1,3 @@
-//alert(localStorage.setItem("intent", "hi"));
-//localStorage.removeItem("intent");
-//alert(localStorage.getItem("intent"));
-const approved = ["www.bing.com", "www.google.com", "duckduckgo.com"]
 const generateSTYLES = () => {
     return `<style>@import url(https://fonts.googleapis.com/css?family=opensans:500);
     body {
@@ -250,12 +246,11 @@ const generateSTYLES = () => {
         <div class='_404'>404</div>
         <hr>
         <div class='_1'>GET BACK TO WORK</div>
-        <div class='_2'>Do ${intent} bozo</div>
+        <div class='_2'>Do ${intent}</div>
     </div>
      `;
   };
 
-  console.log("test")
   chrome.storage.sync.get(["intent"], function(result) {
       //alert('Value currently is ' + result.intent);
       // Define the request data
@@ -269,8 +264,8 @@ const generateSTYLES = () => {
         method: "OPTIONS",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Request-Method": "POST",  // Specify the actual request method
-          "Access-Control-Request-Headers": "Content-Type",  // Specify the actual request headers
+          "Access-Control-Request-Method": "POST",
+          "Access-Control-Request-Headers": "Content-Type",
         },
       })
         .then(response => {
@@ -283,20 +278,28 @@ const generateSTYLES = () => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              "Access-Control-Request-Method": "POST",
+              "Access-Control-Request-Headers": "Content-Type",
             },
             body: JSON.stringify(requestData),
+            mode: 'cors',
           });
         })
         .then(actualResponse => {
           if (!actualResponse.ok) {
-            throw new Error(`Actual request error! Status: ${actualResponse.status}`);
+            throw new Error(`${actualResponse.status} model didnt return a good response`);
           }
       
           return actualResponse.json();
         })
         .then(data => {
-          // Handle the response data here
-          console.log(data);
+
+          if (data.result == false) {
+            document.head.innerHTML = generateSTYLES();
+            document.body.innerHTML = generateHTML(result.intent);
+
+          }
+
         })
         .catch(error => {
           // Handle errors during the request
