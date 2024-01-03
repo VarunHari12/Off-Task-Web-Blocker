@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('submitButton').addEventListener('click', function () { // adds submit button to intent page
+    document.getElementById('submitButton').addEventListener('click', function () { // checks if submit button is clicked
         getIntent();
+    });
+    document.getElementById('nothingButton').addEventListener('click', function () { // checks if nothing button is clicked
+        chrome.storage.sync.set({"intent": "none"})
+        window.close();
     });
 });
 
