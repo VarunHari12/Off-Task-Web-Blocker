@@ -1,3 +1,4 @@
+// generates the graphic for the blocking webpage
 const generateSTYLES = () => {
     return `<style>@import url(https://fonts.googleapis.com/css?family=opensans:500);
     body {
@@ -231,6 +232,7 @@ const generateSTYLES = () => {
      </style>`;
   };
   
+  // generates the actual html page
   const generateHTML = (intent) => {
     return `
      
@@ -253,13 +255,13 @@ const generateSTYLES = () => {
 
   chrome.storage.sync.get(["intent"], function(result) {
       //alert('Value currently is ' + result.intent);
-      // Define the request data
+      // Defines all the request data
       const requestData = {
-        url: window.location.toString(), // Replace with the actual URL
-        intent: result.intent,      // Replace with the actual intent
+        url: window.location.toString(), // gets url
+        intent: result.intent,      // gets intent
       };
       
-      // Make the CORS preflight request
+      // Makes the CORS preflight request
       fetch("https://85e4-50-46-246-210.ngrok-free.app/antidis", {
         method: "OPTIONS",
         headers: {
@@ -270,10 +272,10 @@ const generateSTYLES = () => {
       })
         .then(response => {
           if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            throw new Error(`Error! status: ${response.status}`);
           }
       
-          // If the preflight request is successful, make the actual request
+          // if the preflight request is working, make the actual request
           return fetch("https://85e4-50-46-246-210.ngrok-free.app/antidis", {
             method: "POST",
             headers: {
@@ -287,15 +289,14 @@ const generateSTYLES = () => {
         })
         .then(actualResponse => {
           if (!actualResponse.ok) {
-            throw new Error(`${actualResponse.status} model didnt return a good response`);
-          }
-      
+            throw new Error(`${actualResponse.status} model didnt return a good response for use`); // throws error for issues with model
+          } 
           return actualResponse.json();
         })
         .then(data => {
 
           if (data.result == false) {
-            document.head.innerHTML = generateSTYLES();
+            document.head.innerHTML = generateSTYLES(); // replaces current page with the blocking page
             document.body.innerHTML = generateHTML(result.intent);
 
           }
@@ -303,6 +304,6 @@ const generateSTYLES = () => {
         })
         .catch(error => {
           // Handle errors during the request
-          console.error("Error during the request:", error);
+          console.error("Error:", error);
         });
       });
