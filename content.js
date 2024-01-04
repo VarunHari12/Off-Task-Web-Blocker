@@ -76,58 +76,69 @@ const generateHTML = (intent) => {
     </div>`;
 };
   
-  chrome.storage.sync.get(["intent"], function(result) {
-      // Defines all the request data
-      if (result.intent != "none") {
-      const requestData = {
-        url: window.location.toString(), // gets url
-        intent: result.intent,      // gets intent
-      };
+chrome.storage.sync.get(["intent"], function(result) {
+  // Defines all the request data
+  if (result.intent != "none") {
+  
+    let url = window.location.toString();
 
-      
-      // Makes the CORS preflight request
-      fetch("https://9955-50-46-246-210.ngrok-free.app/antidis", {
-        method: "OPTIONS",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Request-Method": "POST",
-          "Access-Control-Request-Headers": "Content-Type",
-        },
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Error! status: ${response.status}`);
-          }
-      
-          // if the preflight request is working, make the actual request
-          return fetch("https://9955-50-46-246-210.ngrok-free.app/antidis", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Request-Method": "POST",
-              "Access-Control-Request-Headers": "Content-Type",
-            },
-            body: JSON.stringify(requestData),
-            mode: 'cors',
-          });
-        })
-        .then(actualResponse => {
-          if (!actualResponse.ok) {
-            throw new Error(`${actualResponse.status} model didnt return a good response for use`); // throws error for issues with model
-          } 
-          return actualResponse.json();
-        })
-        .then(data => {
+    if (url == "https://www.google.com/" || url == "https://www.bing.com/" || url == "https://duckduckgo.com/") {
+      return;
+    }
 
-          if (data.result == false) {
-            document.head.innerHTML = generateSTYLES(); // replaces current page with the blocking page
-            document.body.innerHTML = generateHTML(result.intent);
+    console.log(document.title);
+    if (document.title.slice(-7) == "YouTube") {
+      url = "&q=Youtube video; Title: " + document.title.slice(0, -10);
+    }
 
-          }
-
-        })
-        .catch(error => {
-          // Handle errors during the request
-          console.error("Error:", error);
+    const requestData = {
+      url: url, // gets url
+      intent: result.intent,      // gets intent
+    };
+    
+    // Make the CORS preflight request
+    fetch("https://9955-50-46-246-210.ngrok-free.app/antidis", {
+      method: "OPTIONS",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Request-Method": "POST",
+        "Access-Control-Request-Headers": "Content-Type",
+      },
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Error! status: ${response.status}`);
+        }
+    
+        // If the preflight request is successful, make the actual request
+        return fetch("https://9955-50-46-246-210.ngrok-free.app/antidis", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "Content-Type",
+          },
+          body: JSON.stringify(requestData),
+          mode: 'cors',
         });
-      }});
+      })
+      .then(actualResponse => {
+        if (!actualResponse.ok) {
+          throw new Error(`${actualResponse.status} model didnt return a good response for use`); // throws error for issues with model
+        } 
+        return actualResponse.json();
+      })
+      .then(data => {
+
+        if (data.result == false) {
+          document.head.innerHTML = generateSTYLES(); // replaces current page with the blocking page
+          document.body.innerHTML = generateHTML(result.intent);
+
+        }
+
+      })
+      .catch(error => {
+        // Handle errors during the request
+        console.error("Error:", error);
+      });
+  }});
