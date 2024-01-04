@@ -86,7 +86,7 @@ const generateHTML = (intent) => {
 
       
       // Makes the CORS preflight request
-      fetch("https://ca16-50-46-246-210.ngrok-free.app/antidis", {
+      fetch("https://9955-50-46-246-210.ngrok-free.app/antidis", {
         method: "OPTIONS",
         headers: {
           "Content-Type": "application/json",
@@ -100,7 +100,7 @@ const generateHTML = (intent) => {
           }
       
           // if the preflight request is working, make the actual request
-          return fetch("https://ca16-50-46-246-210.ngrok-free.app/antidis", {
+          return fetch("https://9955-50-46-246-210.ngrok-free.app/antidis", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
