@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap">
+    <script src="popup.js"></script>
+    <style>
+        body {
+            background-color: #2e6d4e; 
+            font-family: 'Baloo 2', cursive, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        div {
+            text-align: center;
+            padding: 60px; 
+            background-color: #4e8c67; 
+            border-radius: 16px;
+        }
+
+        h3 {
+            color: #fff; 
+            font-size: 48px; 
+        }
+
+        input {
+            padding: 20px; 
+            margin: 10px 0 30px 0; 
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            width: 80%; 
+            font-size: 24px; 
+        }
+
+        button {
+            padding: 24px; 
+            background-color: #1f4f2e; 
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 24px; 
+            margin-right: 10px; 
+        }
+
+        button:hover {
+            background-color: #183f24; 
+        }
+    </style>
+</head>
+<body style="width: 600px; height: 530px;">
+    <div>
+        <h3>What are you doing today?</h3>
+        <input type="text" id="userInput">
+        <button id="submitButton">Submit</button>
+        <button id="nothingButton">Nothing</button>
+    </div>
+</body>
+</html>
