@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Popup</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap">
     <script src="popup.js"></script>
     <style>
+        @font-face {
+            font-family: "San Francisco";
+            font-weight: 300;
+            src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+        }
+
         body {
             background-color: #2e6d4e; 
-            font-family: 'Baloo 2', cursive, Arial, sans-serif;
+            font-family: 'San Francisco', Arial;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -47,10 +52,16 @@
             cursor: pointer;
             font-size: 24px; 
             margin-right: 10px; 
+            line-height: 23px;
         }
 
         button:hover {
             background-color: #183f24; 
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
         }
     </style>
 </head>
@@ -58,8 +69,11 @@
     <div>
         <h3>What are you doing today?</h3>
         <input type="text" id="userInput">
-        <button id="submitButton">Submit</button>
-        <button id="nothingButton">Nothing</button>
+        <div class="button-container">
+            <button id="submitButton">Submit</button>
+            <button id="nothingButton">Nothing</button>
+            <button id="allowedButton">Allowed <br> Sites</button>
+        </div>
     </div>
 </body>
 </html>

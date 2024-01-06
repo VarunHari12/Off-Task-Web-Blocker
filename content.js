@@ -82,22 +82,33 @@ chrome.storage.sync.get(["intent"], function(result) {
   
     let url = window.location.toString();
 
+    let approved = false;
+    chrome.storage.sync.get(["approved"], function(approvedresults) {
+      console.log(approvedresults.approved.includes(window.location.hostname.replace('www.', '')));
+      if (approvedresults.approved.includes(window.location.hostname.replace('www.', ''))) {
+        approved = true;
+      }
+    })
+
+    if (!approved) {
+      return;
+    }
+
     if (url == "https://www.google.com/" || url == "https://www.bing.com/" || url == "https://duckduckgo.com/") {
       return;
     }
 
-    console.log(document.title);
     if (document.title.slice(-7) == "YouTube") {
       url = "&q=Youtube video; Title: " + document.title.slice(0, -10);
     }
 
     const requestData = {
-      url: url, // gets url
-      intent: result.intent,      // gets intent
+      url: url,
+      intent: result.intent,
     };
     
     // Make the CORS preflight request
-    fetch("https://9955-50-46-246-210.ngrok-free.app/antidis", {
+    fetch("http://127.0.0.1:8080/antidis", {
       method: "OPTIONS",
       headers: {
         "Content-Type": "application/json",
@@ -110,7 +121,7 @@ chrome.storage.sync.get(["intent"], function(result) {
           throw new Error(`Error! status: ${response.status}`);
         }
         // If the preflight request is successful, make the actual request
-        return fetch("https://9955-50-46-246-210.ngrok-free.app/antidis", {
+        return fetch("http://127.0.0.1:8080/antidis", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -128,13 +139,12 @@ chrome.storage.sync.get(["intent"], function(result) {
         return actualResponse.json();
       })
       .then(data => {
-        chrome.storage.sync.get(["approved"], function(results) {
-        if (data.result == false && results.approved.includes(window.location.hostname) == false) {
+        
+        if (!data.result) {
           document.head.innerHTML = generateSTYLES(); // replaces current page with the blocking page
           document.body.innerHTML = generateHTML(result.intent);
 
         }
-      })
       })
       .catch(error => {
         // Handle errors during the request

@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Approved Links</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap">
     <style>
+        @font-face {
+            font-family: "San Francisco";
+            font-weight: 300;
+            src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+        }
+
         body {
-            background-color: #2e6d4e; 
+            background-color: #2e6d4e;
             color: #fff;
-            font-family: 'Baloo 2', cursive, Arial, sans-serif;
+            font-family: 'San Francisco', Arial;
             margin: 0;
-            padding: 40px; 
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
+        }
+
+        div {
+            text-align: center;
+            padding: 170px;
+            padding-top: 0.75%;
+            padding-bottom: 75px;
+            background-color: #4e8c67; 
+            border-radius: 16px;
         }
 
         h2 {
@@ -34,6 +47,7 @@
         li {
             font-size: 24px; 
             margin-bottom: 20px; 
+            display: flex;
         }
 
         input {
@@ -42,8 +56,13 @@
             margin-right: 5px; 
             border: 2px solid #fff;
             border-radius: 16px; 
-            width: 55%; 
-            font-size: 24px; 
+            width: 60%; 
+            font-size: 24px;
+        }
+
+        input,
+        input::placeholder {
+            font-size: 15px;
         }
 
         button {
@@ -54,7 +73,7 @@
             border-radius: 16px; 
             cursor: pointer;
             font-size: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         button:hover {
@@ -63,13 +82,15 @@
     </style>
 </head>
 <body>
-    <h2>Approved Links</h2>
-    <ul id="linkList"></ul>
+    <div>
+        <h2>Approved Links</h2>
+        <ul id="linkList"></ul>
 
 
-    <button>Add Link</button>
-    <button id = "doneButton">Done</button>
+        <button>Add Link</button>
+        <button id = "doneButton">Done</button>
 
-    <script src="allowed.js"></script>
+        <script src="allowed.js"></script>
+    </div>
 </body>
 </html>

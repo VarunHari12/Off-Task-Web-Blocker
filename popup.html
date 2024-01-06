@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Popup</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap">
     <script src="popup.js"></script>
     <style>
+        @font-face {
+            font-family: "San Francisco";
+            font-weight: 300;
+            src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+        }
+
         body {
             background-color: #2e6d4e; 
-            font-family: 'Baloo 2', cursive, Arial, sans-serif;
+            font-family: 'San Francisco', Arial;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -35,7 +40,7 @@
             border: 2px solid #ccc;
             border-radius: 12px;
             width: 80%; 
-            font-size: 24px; 
+            font-size: 24px;
         }
 
         button {
