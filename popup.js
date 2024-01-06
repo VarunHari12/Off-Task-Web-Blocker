@@ -1,4 +1,6 @@
+
 document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('userInput').placeholder = "Type out what you want to work on today";
     document.getElementById('submitButton').addEventListener('click', function () { // checks if submit button is clicked
         getIntent();
     });

@@ -1,32 +1,33 @@
 document.addEventListener('DOMContentLoaded', function () {
-
-    chrome.storage.sync.get(["approved"], function(approvedresults) {
+    chrome.storage.sync.get(["approved"], function (approvedresults) {
         if (approvedresults.approved.length == 0) {
             addLink();
         }
 
-       for (var i = 0; i < approvedresults.approved.length; i++) {
-            var linkList = document.getElementById('linkList');
-            var linkItem = document.createElement('li');
-            linkItem.className = 'linkItem';
+        for (var i = 0; i < approvedresults.approved.length; i++) {
+            (function (index) {
+                var linkList = document.getElementById('linkList');
+                var linkItem = document.createElement('li');
+                linkItem.className = 'linkItem';
 
-            var linkInput = document.createElement('input');
-            linkInput.type = 'text';
-            linkInput.className = 'linkInput';
-            linkInput.disabled = true;
-            linkInput.value = approvedresults.approved[i];
-            linkItem.appendChild(linkInput);
+                var linkInput = document.createElement('input');
+                linkInput.type = 'text';
+                linkInput.className = 'linkInput';
+                //linkInput.disabled = true;
+                linkInput.value = approvedresults.approved[index];
+                linkItem.appendChild(linkInput);
 
-            var deleteButton = document.createElement('button');
-            deleteButton.className = 'deleteButton';
-            deleteButton.innerHTML = 'Delete';
-            deleteButton.onclick = function () {
-                linkList.removeChild(linkItem);
-            };
-            linkItem.appendChild(deleteButton);
+                var deleteButton = document.createElement('button');
+                deleteButton.className = 'deleteButton';
+                deleteButton.innerHTML = 'Delete';
+                deleteButton.onclick = function () {
+                    linkList.removeChild(linkItem);
+                };
+                linkItem.appendChild(deleteButton);
 
-            linkList.appendChild(linkItem);
-       }
+                linkList.appendChild(linkItem);
+            })(i);
+        }
     })
 
 
@@ -67,10 +68,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 continue;
             }
 
-            inputElements[i].disabled = true;
+            //inputElements[i].disabled = true;
             links.push(inputElements[i].value);
         }
 
         chrome.storage.sync.set({"approved": links})
+        console.log("test")
+        window.close()
     })
 })
