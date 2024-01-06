@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approved Links</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap">
+    <style>
+        body {
+            background-color: #2e6d4e; 
+            color: #fff;
+            font-family: 'Baloo 2', cursive, Arial, sans-serif;
+            margin: 0;
+            padding: 40px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            margin-bottom: 30px; 
+            font-size: 80px; 
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        li {
+            font-size: 24px; 
+            margin-bottom: 20px; 
+        }
+
+        input {
+            padding: 20px; 
+            margin-bottom: 30px;
+            margin-right: 5px; 
+            border: 2px solid #fff;
+            border-radius: 16px; 
+            width: 55%; 
+            font-size: 24px; 
+        }
+
+        button {
+            padding: 20px 40px; 
+            background-color: #1f4f2e; 
+            color: #fff;
+            border: none;
+            border-radius: 16px; 
+            cursor: pointer;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #183f24; 
+        }
+    </style>
+</head>
+<body>
+    <h2>Approved Links</h2>
+    <ul id="linkList"></ul>
+
+
+    <button>Add Link</button>
+    <button id = "doneButton">Done</button>
+
+    <script src="allowed.js"></script>
+</body>
+</html>

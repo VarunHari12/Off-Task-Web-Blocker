@@ -109,7 +109,6 @@ chrome.storage.sync.get(["intent"], function(result) {
         if (!response.ok) {
           throw new Error(`Error! status: ${response.status}`);
         }
-    
         // If the preflight request is successful, make the actual request
         return fetch("https://9955-50-46-246-210.ngrok-free.app/antidis", {
           method: "POST",
@@ -129,13 +128,13 @@ chrome.storage.sync.get(["intent"], function(result) {
         return actualResponse.json();
       })
       .then(data => {
-
-        if (data.result == false) {
+        chrome.storage.sync.get(["approved"], function(results) {
+        if (data.result == false && results.approved.includes(window.location.hostname) == false) {
           document.head.innerHTML = generateSTYLES(); // replaces current page with the blocking page
           document.body.innerHTML = generateHTML(result.intent);
 
         }
-
+      })
       })
       .catch(error => {
         // Handle errors during the request
