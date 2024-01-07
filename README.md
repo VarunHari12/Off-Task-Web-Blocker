@@ -4,7 +4,7 @@ This is a Chrome web extension that blocks certain web pages and searches based 
 
 # Functionalities
 
-If the extension is turned on, when the user starts their browser, they will be directed to a webpage asking what they will be working on. After submitting that, each time the user searches up a new term/page, the term will be determined either related or non-related to an intent. If the term is not related, the webpage will be blocked from access.
+If the extension is turned on, when the user starts their browser, they will be directed to a webpage asking what they will be working on. After submitting that, each time the user searches up a new term/page, the term will be determined either related or non-related to an intent. If the term is not related, the webpage will be blocked from access. There is also an option to allo some websites to stay unblocked no matter what. You just click the Approved sites button and then type in all the sites you want to have unblocked.
 
 # How to set up
 
